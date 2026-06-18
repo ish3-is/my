@@ -7,9 +7,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.development.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.development.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@babel/standalone/babel.min.js"></script>
+    
+    <!-- تحديث المكتبات إلى إصدارات مستقرة وجديدة -->
+    <script crossorigin="anonymous" src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.development.js"></script>
+    <script crossorigin="anonymous" src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.development.js"></script>
+    <script crossorigin="anonymous" src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.26.0/babel.min.js"></script>
+    
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Tajawal', 'Cairo', sans-serif; background-color: #0a0a2a; overflow-x: hidden; scroll-behavior: smooth; }
@@ -50,6 +53,11 @@
         .org-card {
             background: linear-gradient(135deg, rgba(79, 70, 229, 0.2), rgba(139, 92, 246, 0.2));
             border: 1px solid rgba(139, 92, 246, 0.4);
+        }
+        /* تحسين للتمرير في حالة الشاشات الصغيرة */
+        @media (max-width: 768px) {
+            nav .flex-wrap { gap: 8px; }
+            nav button { font-size: 12px; padding: 4px 8px; }
         }
     </style>
 </head>
@@ -380,6 +388,7 @@
                                             {member.tiktok && <a href={member.tiktok} target="_blank" className="text-gray-400 hover:text-purple-400 transition social-icon"><i className="fab fa-tiktok"></i></a>}
                                             {member.youtube && <a href={member.youtube} target="_blank" className="text-gray-400 hover:text-purple-400 transition social-icon"><i className="fab fa-youtube"></i></a>}
                                             {member.telegram && <a href={member.telegram} target="_blank" className="text-gray-400 hover:text-purple-400 transition social-icon"><i className="fab fa-telegram-plane"></i></a>}
+                                            {member.x && <a href={member.x} target="_blank" className="text-gray-400 hover:text-purple-400 transition social-icon"><i className="fab fa-x-twitter"></i></a>}
                                         </div>
                                     </div>
                                 ))}
