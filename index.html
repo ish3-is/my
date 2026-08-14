@@ -3,12 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>مشعل الجـــذمي | مدار التقنية - منظمة التدريب والتمكين الرقمي</title>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>مشعل الجـــذمي | Cybersecurity Specialist | SOC | Detection Engineering</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Cairo:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- تحديث المكتبات إلى إصدارات مستقرة وجديدة -->
     <script crossorigin="anonymous" src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.development.js"></script>
     <script crossorigin="anonymous" src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.development.js"></script>
     <script crossorigin="anonymous" src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.26.0/babel.min.js"></script>
@@ -16,6 +15,8 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Tajawal', 'Cairo', sans-serif; background-color: #0a0a2a; overflow-x: hidden; scroll-behavior: smooth; }
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+        
         .glass-card {
             background: rgba(15, 25, 45, 0.55);
             backdrop-filter: blur(12px);
@@ -25,8 +26,11 @@
             transition: all 0.3s ease;
         }
         .glass-card:hover { border-color: rgba(139, 92, 246, 0.5); box-shadow: 0 25px 40px -12px rgba(139, 92, 246, 0.25); transform: translateY(-6px); }
+        
         @keyframes float { 0% { transform: translateY(0px) rotate(0deg); } 50% { transform: translateY(-15px) rotate(2deg); } 100% { transform: translateY(0px) rotate(0deg); } }
         .floating { animation: float 6s ease-in-out infinite; }
+        .floating-slow { animation: float 10s ease-in-out infinite; }
+        
         @keyframes heroGlowFloat {
             0% { opacity: 0; transform: translateY(30px) scale(0.98); text-shadow: 0 0 0px rgba(168,85,247,0); }
             20% { opacity: 1; transform: translateY(0) scale(1); text-shadow: 0 0 8px rgba(168,85,247,0.5); }
@@ -35,13 +39,17 @@
         }
         .hero-animated { animation: heroGlowFloat 2s ease-out forwards; display: inline-block; }
         .hero-animated:hover { animation: none; transform: scale(1.02); text-shadow: 0 0 25px #a855f7; }
+        
         .fade-up { opacity: 0; transform: translateY(40px); transition: opacity 0.8s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 0.8s ease; }
         .fade-up.revealed { opacity: 1; transform: translateY(0); }
+        
         #particle-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
         .content-layer { position: relative; z-index: 2; }
+        
         .loader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #020617; z-index: 9999; display: flex; align-items: center; justify-content: center; transition: opacity 0.5s ease; }
         .spinner { width: 60px; height: 60px; border: 4px solid rgba(139,92,246,0.2); border-top: 4px solid #8b5cf6; border-radius: 50%; animation: spin 1s linear infinite; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        
         .nav-link { transition: all 0.2s; cursor: pointer; }
         .nav-link:hover { color: #c084fc; }
         .social-icon { transition: all 0.2s; display: inline-block; }
@@ -54,7 +62,162 @@
             background: linear-gradient(135deg, rgba(79, 70, 229, 0.2), rgba(139, 92, 246, 0.2));
             border: 1px solid rgba(139, 92, 246, 0.4);
         }
-        /* تحسين للتمرير في حالة الشاشات الصغيرة */
+
+        /* Project Cards */
+        .project-card {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            background: rgba(15, 25, 45, 0.6);
+            backdrop-filter: blur(14px);
+            border-radius: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-from), var(--accent-to));
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.4s ease;
+        }
+        .project-card:hover::before { transform: scaleX(1); transform-origin: left; }
+        .project-card:hover { 
+            border-color: var(--accent-to); 
+            transform: translateY(-8px) scale(1.01); 
+            box-shadow: 0 30px 50px -20px var(--accent-to); 
+        }
+        
+        .skill-tag {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 500;
+            background: rgba(139, 92, 246, 0.15);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            color: #c4b5fd;
+            transition: all 0.2s;
+        }
+        .skill-tag:hover {
+            background: rgba(139, 92, 246, 0.3);
+            transform: translateY(-1px);
+            color: white;
+        }
+        
+        .arch-flow {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+        }
+        .arch-node {
+            padding: 6px 10px;
+            border-radius: 6px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.03);
+        }
+        .arch-arrow {
+            text-align: center;
+            color: rgba(168, 85, 247, 0.5);
+            font-size: 10px;
+        }
+        
+        .journey-flow {
+            position: relative;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.05), rgba(79, 70, 229, 0.05));
+            border-radius: 2rem;
+            padding: 2.5rem;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+        }
+        .journey-step {
+            position: relative;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            background: rgba(15, 25, 45, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s;
+        }
+        .journey-step:hover {
+            transform: translateY(-4px);
+            border-color: rgba(168, 85, 247, 0.5);
+            box-shadow: 0 15px 30px -10px rgba(168, 85, 247, 0.3);
+        }
+        .journey-connector {
+            position: absolute;
+            color: rgba(168, 85, 247, 0.6);
+            font-size: 24px;
+        }
+        
+        .achievement-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 14px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, rgba(234, 179, 8, 0.15), rgba(251, 146, 60, 0.15));
+            border: 1px solid rgba(250, 204, 21, 0.4);
+            color: #fde047;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        .achievement-badge i { color: #fbbf24; }
+        
+        .tech-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 3px 10px;
+            border-radius: 6px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            font-size: 11px;
+            color: #d1d5db;
+        }
+        .tech-badge:hover { background: rgba(139, 92, 246, 0.2); border-color: rgba(139, 92, 246, 0.4); }
+        
+        .skills-matrix-item {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 1rem;
+            padding: 1.25rem;
+            transition: all 0.3s;
+        }
+        .skills-matrix-item:hover {
+            background: rgba(139, 92, 246, 0.1);
+            border-color: rgba(139, 92, 246, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background: #10b981;
+            border-radius: 50%;
+            display: inline-block;
+            margin-left: 6px;
+            box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+        
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.4), transparent);
+            margin: 4rem 0;
+        }
+        
         @media (max-width: 768px) {
             nav .flex-wrap { gap: 8px; }
             nav button { font-size: 12px; padding: 4px 8px; }
@@ -125,7 +288,7 @@
             const elements = document.querySelectorAll('.fade-up');
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('revealed'); observer.unobserve(entry.target); } });
-            }, { threshold: 0.2, rootMargin: "0px 0px -40px 0px" });
+            }, { threshold: 0.1, rootMargin: "0px 0px -40px 0px" });
             elements.forEach(el => observer.observe(el));
             return () => observer.disconnect();
         }, []);
@@ -142,7 +305,7 @@
                 </div>
                 <div className="mr-4 text-right">
                     <h1 className="text-2xl font-black tracking-tight bg-gradient-to-r from-white via-purple-200 to-indigo-300 bg-clip-text text-transparent">مشعل الجذمي</h1>
-                    <p className="text-xs text-purple-300 font-medium">مؤسس منظمة مدار التقنية</p>
+                    <p className="text-xs text-purple-300 font-medium flex items-center gap-1">Cybersecurity Specialist <span className="pulse-dot"></span></p>
                 </div>
             </div>
         );
@@ -155,7 +318,7 @@
                     <i className="fas fa-building text-white text-xl"></i>
                 </div>
                 <div>
-                    <h3 className="font-bold text-lg">منظمة مدار التقنية</h3>
+                    <h3 className="font-bold text-sm md:text-base">منظمة مدار التقنية</h3>
                     <p className="text-xs text-purple-300">للتدريب والتمكين الرقمي</p>
                 </div>
             </div>
@@ -167,14 +330,13 @@
         useEffect(() => {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('revealed'); observer.unobserve(entry.target); } });
-            }, { threshold: 0.15 });
+            }, { threshold: 0.1 });
             if (ref.current) observer.observe(ref.current);
             return () => observer.disconnect();
         }, []);
         return <div ref={ref} id={id} className={`fade-up ${className}`}>{children}</div>;
     };
 
-    // Certificates data (Updated with Ethical Hacking Course achievement)
     const certificates = [
         { name: "تقديم وإتمام دورة الاختراق الأخلاقي والأمن السيبراني (135 مسجل | 25 ساعة مكثفة)", org: "منظمة مدار التقنية", date: "مايو 2026", status: "مكتمل المميز", featured: true },
         { name: "Ethical Hacker", org: "CISCO", date: "1 Sep 2025 - 31 Des 2025", status: "مكتمل" },
@@ -207,28 +369,138 @@
         { name: "سياف القحطاني", role: "خبير أمن سيبراني", desc: "متخصص في أمن الأنظمة والبنية التحتية التقنية.", linkedin: "#", x: "#" }
     ];
 
+    // ============= NEW: Featured Cybersecurity Projects =============
+    const securityProjects = [
+        {
+            id: "dualshield",
+            emoji: "🛡️",
+            name: "MR-SOC DualShield",
+            subtitle: "Automated SOC Platform",
+            specialty: "SOC · SIEM · SOAR · Incident Response · Security Automation",
+            description: "منصة SOC آلية تجمع 8 مكونات أمنية وتربطها مع بعض لأتمتة Detection + Containment في أقل من 3 ثوانٍ.",
+            skills: ["SOC Operations", "Alert Triage", "Security Event Analysis", "Incident Handling", "Automated Response", "Wazuh", "OpenSearch", "API Integration", "Python Automation"],
+            tech: ["Wazuh", "Python", "TheHive", "Grafana", "OpenSearch", "Telegram", "PDF"],
+            achievement: { icon: "fa-bolt", text: "Attacker blocking time < 3 seconds", color: "from-red-500 to-orange-500" },
+            github: "https://github.com/ish3-is/MR-SOC---DualShield",
+            accent: { from: "#ef4444", to: "#f97316", class: "from-red-500 to-orange-500" },
+            flow: ["Attacker", "Target Endpoint", "Wazuh Agent", "Wazuh SIEM", "Python SOAR", "TheHive / Analyst"],
+            tier: "SOC Operations",
+            category: "Respond"
+        },
+        {
+            id: "sentinel",
+            emoji: "🖥️",
+            name: "RM Sentinel",
+            subtitle: "Enterprise SOC Platform",
+            specialty: "HIDS · FIM · Risk Scoring · SOC Dashboard",
+            description: "نظام Host-Based Intrusion Detection متقدم مع File Integrity Monitoring و Dynamic Risk Scoring ولوحة SOC فورية.",
+            skills: ["Detection Engineering", "File Integrity Monitoring", "REST APIs", "PostgreSQL", "Real-Time Dashboards", "Risk Analysis", "FastAPI"],
+            tech: ["Python", "FastAPI", "PostgreSQL", "Streamlit"],
+            achievement: { icon: "fa-shield-halved", text: "Dynamic Risk Scoring Engine", color: "from-blue-500 to-cyan-500" },
+            github: "https://github.com/ish3-is/RM_Sentinel",
+            accent: { from: "#3b82f6", to: "#06b6d4", class: "from-blue-500 to-cyan-500" },
+            flow: ["Endpoint", "File / Event Monitoring", "HIDS Engine", "Risk Scoring", "SOC Dashboard"],
+            tier: "HIDS / FIM",
+            category: "Detect"
+        },
+        {
+            id: "ueba",
+            emoji: "🤖",
+            name: "UEBA AI Engine",
+            subtitle: "Behavioral Analytics + ML",
+            specialty: "UEBA · Behavioral Analytics · Machine Learning · Zero Trust",
+            description: "نظام Continuous Authentication يعتمد على Keystroke Dynamics و Random Forest لتوفير Behavioral Detection بدقة >95%.",
+            skills: ["UEBA", "Behavioral Analytics", "Continuous Authentication", "Anomaly Detection", "Zero Trust", "Random Forest", "Feature Engineering", "Splunk Integration"],
+            tech: ["Random Forest", "Splunk", "Python", "Keystroke Dynamics"],
+            achievement: { icon: "fa-brain", text: ">95% classification accuracy", color: "from-purple-500 to-pink-500" },
+            github: "https://github.com/ish3-is/R-M-UEBA-AI-Engine",
+            accent: { from: "#a855f7", to: "#ec4899", class: "from-purple-500 to-pink-500" },
+            flow: ["User Keystrokes", "Feature Extraction", "ML Model", "Random Forest", "Splunk SOC"],
+            tier: "Behavioral AI",
+            category: "Analyze"
+        },
+        {
+            id: "purpleops",
+            emoji: "🟣",
+            name: "PurpleOps Pro",
+            subtitle: "Wazuh SOC Lab + MITRE ATT&CK",
+            specialty: "Purple Team · MITRE ATT&CK · Detection Validation · EDR/SIEM",
+            description: "محاكاة هجمات MITRE ATT&CK واختبار Detection Controls عبر Wazuh SIEM و Velociraptor EDR لاختبار التغطية الأمنية.",
+            skills: ["Purple Team", "Attack Simulation", "Detection Validation", "MITRE ATT&CK", "Velociraptor EDR", "Security Control Testing", "Investigation"],
+            tech: ["Wazuh", "Velociraptor", "Python", "MITRE ATT&CK", "Sysmon"],
+            achievement: { icon: "fa-crosshairs", text: "Full MITRE ATT&CK Coverage Mapping", color: "from-emerald-500 to-teal-500" },
+            github: "https://github.com/ish3-is/R-MPurpleOps-Pro",
+            accent: { from: "#10b981", to: "#14b8a6", class: "from-emerald-500 to-teal-500" },
+            flow: ["MITRE Technique", "Endpoint", "Sysmon / Auditd", "Wazuh SIEM", "Velociraptor EDR"],
+            tier: "Purple Team",
+            category: "Attack"
+        }
+    ];
+
+    const skillsMatrix = [
+        {
+            icon: "fa-shield-halved",
+            title: "Security Operations",
+            color: "from-red-500 to-orange-500",
+            items: ["SOC Operations", "Blue Team", "Security Monitoring", "Alert Triage", "Threat Detection", "Incident Response", "Security Automation"]
+        },
+        {
+            icon: "fa-magnifying-glass-chart",
+            title: "Detection Engineering",
+            color: "from-blue-500 to-cyan-500",
+            items: ["Detection Rules", "MITRE ATT&CK", "Attack Simulation", "HIDS / FIM", "EDR", "Behavioral Detection"]
+        },
+        {
+            icon: "fa-gauge-high",
+            title: "SIEM / SOAR",
+            color: "from-purple-500 to-pink-500",
+            items: ["Wazuh", "Splunk", "OpenSearch", "TheHive", "Grafana", "Active Response", "SOAR Automation"]
+        },
+        {
+            icon: "fa-brain",
+            title: "Advanced Analytics",
+            color: "from-violet-500 to-fuchsia-500",
+            items: ["UEBA", "Anomaly Detection", "Behavioral Analytics", "Continuous Auth", "Dynamic Risk Scoring", "Machine Learning"]
+        },
+        {
+            icon: "fa-code",
+            title: "Security Development",
+            color: "from-emerald-500 to-teal-500",
+            items: ["Python", "FastAPI", "Flask", "Streamlit", "REST APIs", "PostgreSQL", "Automation"]
+        },
+        {
+            icon: "fa-crosshairs",
+            title: "Security Testing",
+            color: "from-amber-500 to-orange-500",
+            items: ["Purple Team", "MITRE ATT&CK", "Detection Testing", "Control Validation", "Kali Linux"]
+        }
+    ];
+
     const t = {
-        nav: { home: "الرئيسية", organization: "المنظمة", project: "مشروع التخرج", portfolio: "المشاريع الأمنية", services: "خدماتي", training: "مجالات التدريب", why: "لماذا نحن", contact: "اتصل بي" },
-        hero: { title: "نرتقي بمهاراتك نحو الاحتراف التقني", sub: "مؤسس منظمة مدار التقنية | خبير أمن سيبراني | منشئ محتوى", btn1: "تصفح أعمالي الأمنية", btn2: "تواصل معي" },
+        nav: { home: "الرئيسية", organization: "المنظمة", project: "مشروع التخرج", portfolio: "مشاريعي الأمنية", skills: "المهارات", services: "خدماتي", training: "مجالات التدريب", why: "لماذا نحن", contact: "اتصل بي" },
+        hero: { 
+            title: "مشعل الجذمي", 
+            subtitle: "Cybersecurity Specialist",
+            tagline: "SOC · Detection Engineering · Incident Response · Security Automation",
+            sub: "أبني منصات أمنية متكاملة تحاكي بيئات SOC حقيقية — من المحاكاة إلى الاستجابة الآلية.",
+            btn1: "استعرض مشاريعي الأمنية", 
+            btn2: "تواصل معي" 
+        },
         aboutMe: {
             title: "من أنا؟",
-            desc: "أنا مشعل الجذمي، مؤسس منظمة مدار التقنية. قائد استراتيجي وخبير في الأمن السيبراني، أهدف إلى تمكين الشباب تقنيًا من خلال محتوى تعليمي مجاني وشروحات مخصصة للمقررات الجامعية. قمت بتصميم وتنفيذ العديد من المشاريع التقنية لطلاب الماجستير، وأمتلك أكثر من 50,000 مشاهدة على يوتيوب و 3,000+ متابع عبر منصات التواصل. شغفي هو نشر المعرفة التقنية وبناء جيل من القادة التقنيين."
+            desc: "أنا مشعل الجذمي، مؤسس منظمة مدار التقنية، و Cybersecurity Specialist متخصص في بناء منصات SOC متكاملة. أقوم بتصميم وتنفيذ حلول أمنية تشمل SIEM, SOAR, EDR, HIDS, و Behavioral Analytics باستخدام تقنيات مثل Wazuh, Splunk, Python, و Machine Learning. مشروعي الأمني يمتد من محاكاة الهجمات (Purple Team) إلى الاستجابة الآلية خلال ثوانٍ، مع ربط كامل بمعايير NIST و MITRE ATT&CK."
         },
         organization: {
             title: "منظمة مدار التقنية للتدريب والتمكين الرقمي",
             vision: "الرؤية: ريادة التمكين الرقمي في الوطن العربي",
             mission: "الرسالة: تقديم تدريب تقني متكامل وتمكين المهنيين والشباب بأحدث المهارات الرقمية",
             values: ["الابتكار", "الجودة", "الشفافية", "التعاون", "التأثير المجتمعي"],
-            desc: "منظمة غير ربحية تهدف إلى سد الفجوة بين المهارات الأكاديمية ومتطلبات سوق العمل من خلال برامج تدريبية احترافية، ورش عمل تطبيقية، ومعسكرات تقنية، وتمكين مهني رقمي. نؤمن بأن التكنولوجيا للجميع، ونعمل على نشر المعرفة التقنية المجانية والمحتوى الهادف."
+            desc: "منظمة غير ربحية تهدف إلى سد الفجوة بين المهارات الأكاديمية ومتطلبات سوق العمل من خلال برامج تدريبية احترافية، ورش عمل تطبيقية، ومعسكرات تقنية، وتمكين مهني رقمي."
         },
         project: {
             title: "مشروع التخرج: تطبيق توظيف وتدريب حديثي التخرج",
-            desc: "نعمل على تطوير منصة ذكية تربط حديثي التخرج بالمنشآت والشركات، لتوفير فرص تدريب ميداني وتوظيف مباشر. يساعد التطبيق على سد الفجوة بين المهارات الأكاديمية ومتطلبات سوق العمل، مع خطط تدريب شخصية وتوصيات ذكية. يضم الفريق نخبة من الخبراء في الأمن السيبراني، علوم البيانات، وتطوير البرمجيات.",
+            desc: "نعمل على تطوير منصة ذكية تربط حديثي التخرج بالمنشآت والشركات، لتوفير فرص تدريب ميداني وتوظيف مباشر.",
             teamTitle: "فريق المشروع"
-        },
-        wazuhLab: {
-            title: "هندسة وبناء مختبر SOC متكامل وأتمتة الاستجابة (Wazuh SIEM/XDR)",
-            desc: "تأسيس مركز عمليات أمنية متكامل لمراقبة وتحليل سجلات الأنظمة المتعددة (Windows Server & Linux Ubuntu). يتضمن المشروع محاكاة هجمات Brute Force حية عبر Kali Linux وبرمجة قواعد الاستجابة التلقائية (SOAR / Active Response) لحظر المهاجمين ديناميكياً عبر الجدران النارية وعزل التهديدات، مع الربط والامتثال الكامل لضوابط معيار NIST 800-53 العالمي."
         },
         services: [
             { title: "برامج تدريب احترافية", desc: "مسارات تدريبية متقدمة معتمدة.", icon: "fa-chalkboard-user" },
@@ -252,7 +524,7 @@
                 "القيادة في التحول الرقمي والذكاء الاصطناعي"
             ],
             mastersExperience: "خبراتي مع طلاب الماجستير (المعلوماتية الإدارية)",
-            mastersDesc: "قمت بتصميم وتنفيذ العديد من المشاريع والأعمال التقنية المتخصصة لطلاب ماجستير المعلوماتية الإدارية، بما في ذلك أتمتة العمليات الإدارية، تحليلات البيانات المتقدمة، وتطوير قواعد البيانات.",
+            mastersDesc: "قمت بتصميم وتنفيذ العديد من المشاريع والأعمال التقنية المتخصصة لطلاب ماجستير المعلوماتية الإدارية.",
             channelsTitle: "قنواتي التعليمية"
         },
         trainingFields: ["الأمن السيبراني", "علوم البيانات", "تطوير البرمجيات", "تحليل البيانات", "إدارة المشاريع التقنية"],
@@ -266,7 +538,143 @@
             { title: "شروحات مخصصة", desc: "أقدم شروحات للمقررات المطلوبة عبر قنواتي." }
         ],
         contact: { title: "تواصل معي", btn: "إرسال الرسالة" },
-        footer: "جميع الحقوق محفوظة | مشعل الجذمي - منظمة مدار التقنية للتدريب والتمكين الرقمي"
+        footer: "جميع الحقوق محفوظة | مشعل الجذمي - منظمة مدار التقنية للتدريب والتمكين الرقمي © 2026"
+    };
+
+    // ============= Project Card Component =============
+    const ProjectCard = ({ project }) => {
+        const cardStyle = {
+            '--accent-from': project.accent.from,
+            '--accent-to': project.accent.to,
+        };
+        return (
+            <div className="project-card p-6" style={cardStyle}>
+                <div className="flex items-start justify-between mb-4">
+                    <div className="flex items-center gap-3">
+                        <div 
+                            className="w-14 h-14 rounded-2xl flex items-center justify-center text-3xl shadow-lg"
+                            style={{ background: `linear-gradient(135deg, ${project.accent.from}, ${project.accent.to})` }}
+                        >
+                            <span>{project.emoji}</span>
+                        </div>
+                        <div>
+                            <h3 className="text-xl font-bold text-white">{project.name}</h3>
+                            <p className="text-xs text-gray-400 font-mono">{project.subtitle}</p>
+                        </div>
+                    </div>
+                    <span className="text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full" 
+                          style={{ background: `linear-gradient(135deg, ${project.accent.from}22, ${project.accent.to}22)`, color: project.accent.to, border: `1px solid ${project.accent.to}44` }}>
+                        {project.category}
+                    </span>
+                </div>
+
+                <p className="text-xs font-mono mb-3" style={{ color: project.accent.to }}>{project.specialty}</p>
+                <p className="text-gray-300 text-sm leading-relaxed mb-4">{project.description}</p>
+
+                {/* Achievement Badge */}
+                <div className={`achievement-badge mb-4`}>
+                    <i className={`fas ${project.achievement.icon}`}></i>
+                    <span>{project.achievement.text}</span>
+                </div>
+
+                {/* Architecture Flow */}
+                <div className="mb-4 p-3 rounded-xl bg-black/30 border border-white/5">
+                    <p className="text-[10px] font-mono text-gray-500 mb-2 uppercase tracking-wider">Architecture Flow</p>
+                    <div className="arch-flow">
+                        {project.flow.map((node, i) => (
+                            <React.Fragment key={i}>
+                                <div className="arch-node text-gray-300" style={{ borderColor: `${project.accent.from}33` }}>
+                                    {node}
+                                </div>
+                                {i < project.flow.length - 1 && <div className="arch-arrow">↓</div>}
+                            </React.Fragment>
+                        ))}
+                    </div>
+                </div>
+
+                {/* Tech Stack */}
+                <div className="mb-4">
+                    <p className="text-[10px] font-mono text-gray-500 mb-2 uppercase tracking-wider">Tech Stack</p>
+                    <div className="flex flex-wrap gap-1.5">
+                        {project.tech.map((tech, i) => (
+                            <span key={i} className="tech-badge">
+                                <i className="fas fa-cube text-[8px]" style={{ color: project.accent.to }}></i>
+                                {tech}
+                            </span>
+                        ))}
+                    </div>
+                </div>
+
+                {/* Skills Tags */}
+                <div className="mb-4">
+                    <p className="text-[10px] font-mono text-gray-500 mb-2 uppercase tracking-wider">Key Skills</p>
+                    <div className="flex flex-wrap gap-1.5">
+                        {project.skills.slice(0, 5).map((skill, i) => (
+                            <span key={i} className="skill-tag">{skill}</span>
+                        ))}
+                        {project.skills.length > 5 && (
+                            <span className="skill-tag">+{project.skills.length - 5} more</span>
+                        )}
+                    </div>
+                </div>
+
+                {/* CTA */}
+                <a 
+                    href={project.github} 
+                    target="_blank" 
+                    className="block w-full text-center py-3 rounded-xl font-semibold text-white transition-all hover:shadow-lg flex items-center justify-center gap-2"
+                    style={{ background: `linear-gradient(135deg, ${project.accent.from}, ${project.accent.to})` }}
+                >
+                    <i className="fab fa-github text-lg"></i>
+                    View on GitHub
+                </a>
+            </div>
+        );
+    };
+
+    // ============= Journey Flow Component =============
+    const JourneyFlow = () => {
+        const steps = [
+            { title: "ATTACK", project: "PurpleOps Pro", icon: "fa-crosshairs", desc: "محاكاة تقنيات MITRE ATT&CK", color: "from-emerald-500 to-teal-500" },
+            { title: "DETECT", project: "RM Sentinel + Wazuh", icon: "fa-shield-halved", desc: "HIDS + SIEM Detection", color: "from-blue-500 to-cyan-500" },
+            { title: "ANALYZE", project: "UEBA AI Engine", icon: "fa-brain", desc: "Behavioral Risk Analysis", color: "from-purple-500 to-pink-500" },
+            { title: "RESPOND", project: "MR-SOC DualShield", icon: "fa-bolt", desc: "Automated Containment <3s", color: "from-red-500 to-orange-500" },
+            { title: "DOCUMENT", project: "TheHive + Reports", icon: "fa-file-shield", desc: "Incident Documentation", color: "from-amber-500 to-yellow-500" }
+        ];
+        
+        return (
+            <div className="journey-flow">
+                <div className="text-center mb-8">
+                    <span className="text-xs font-bold uppercase tracking-widest text-purple-400 bg-purple-900/40 px-3 py-1 rounded-full">
+                        <i className="fas fa-route ml-1"></i> End-to-End Security Operations
+                    </span>
+                    <h3 className="text-2xl md:text-3xl font-bold mt-3 bg-gradient-to-r from-white via-purple-200 to-indigo-300 bg-clip-text text-transparent">
+                        Security Engineering Journey
+                    </h3>
+                    <p className="text-gray-400 text-sm mt-2">كيف تتكامل مشاريعي لبناء منظومة أمنية كاملة</p>
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-5 gap-3 relative">
+                    {steps.map((step, i) => (
+                        <React.Fragment key={i}>
+                            <div className="journey-step">
+                                <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${step.color} flex items-center justify-center text-white text-lg shadow-lg mb-3`}>
+                                    <i className={`fas ${step.icon}`}></i>
+                                </div>
+                                <p className="text-[10px] font-mono text-gray-500 uppercase tracking-wider mb-1">{step.title}</p>
+                                <p className="font-bold text-white text-sm mb-1">{step.project}</p>
+                                <p className="text-xs text-gray-400">{step.desc}</p>
+                            </div>
+                            {i < steps.length - 1 && (
+                                <div className="hidden md:flex items-center justify-center text-purple-400 text-2xl">
+                                    <i className="fas fa-arrow-left"></i>
+                                </div>
+                            )}
+                        </React.Fragment>
+                    ))}
+                </div>
+            </div>
+        );
     };
 
     const App = () => {
@@ -298,14 +706,13 @@
                 <nav className="fixed top-0 left-0 w-full z-50 backdrop-blur-md bg-black/30 border-b border-white/10 py-3 px-6 md:px-12">
                     <div className="max-w-7xl mx-auto flex justify-between items-center">
                         <OrganizationLogo />
-                        <div className="flex flex-wrap gap-4 md:gap-6 text-sm md:text-base">
+                        <div className="flex flex-wrap gap-2 md:gap-4 text-xs md:text-sm">
                             <button onClick={() => scrollToSection('home')} className="nav-link text-white/80 hover:text-purple-300">الرئيسية</button>
+                            <button onClick={() => scrollToSection('portfolio')} className="nav-link text-white/80 hover:text-purple-300 font-semibold">المشاريع الأمنية</button>
+                            <button onClick={() => scrollToSection('skills')} className="nav-link text-white/80 hover:text-purple-300">المهارات</button>
                             <button onClick={() => scrollToSection('organization')} className="nav-link text-white/80 hover:text-purple-300">المنظمة</button>
                             <button onClick={() => scrollToSection('project')} className="nav-link text-white/80 hover:text-purple-300">مشروع التخرج</button>
-                            <button onClick={() => scrollToSection('portfolio')} className="nav-link text-white/80 hover:text-purple-300">المشاريع الأمنية</button>
                             <button onClick={() => scrollToSection('services')} className="nav-link text-white/80 hover:text-purple-300">خدماتي</button>
-                            <button onClick={() => scrollToSection('training')} className="nav-link text-white/80 hover:text-purple-300">مجالات التدريب</button>
-                            <button onClick={() => scrollToSection('why')} className="nav-link text-white/80 hover:text-purple-300">لماذا نحن</button>
                             <button onClick={() => scrollToSection('contact')} className="nav-link text-white/80 hover:text-purple-300">اتصل بي</button>
                         </div>
                     </div>
@@ -317,13 +724,34 @@
                     <section id="home" className="min-h-screen flex flex-col justify-center items-center text-center py-16 md:py-24 relative">
                         <CustomLogo />
                         <div className="max-w-4xl mx-auto">
-                            <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-tight bg-gradient-to-r from-white via-purple-200 to-indigo-300 bg-clip-text text-transparent drop-shadow-2xl hero-animated">
+                            <div className="inline-block mb-4 px-4 py-1.5 rounded-full bg-purple-900/40 border border-purple-500/30 text-purple-200 text-xs font-mono">
+                                <i className="fas fa-terminal ml-1"></i> SOC Analyst · Detection Engineer · Security Automation
+                            </div>
+                            <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight bg-gradient-to-r from-white via-purple-200 to-indigo-300 bg-clip-text text-transparent drop-shadow-2xl hero-animated">
                                 {t.hero.title}
                             </h1>
-                            <p className="text-lg md:text-2xl text-gray-300 mt-6 font-light tracking-wide">{t.hero.sub}</p>
+                            <p className="text-xl md:text-2xl font-bold text-purple-300 mt-4">{t.hero.subtitle}</p>
+                            <p className="text-sm md:text-base text-purple-200/70 font-mono mt-2">{t.hero.tagline}</p>
+                            <p className="text-lg md:text-xl text-gray-300 mt-6 font-light tracking-wide max-w-2xl mx-auto">{t.hero.sub}</p>
                             <div className="flex flex-wrap gap-5 justify-center mt-10">
                                 <button onClick={() => scrollToSection('portfolio')} className="px-8 py-3 rounded-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold shadow-lg hover:shadow-purple-500/40 transition-all hover:scale-105 flex items-center gap-2"><i className="fas fa-shield-halved"></i> {t.hero.btn1}</button>
                                 <button onClick={() => scrollToSection('contact')} className="px-8 py-3 rounded-full border border-purple-400/60 text-white font-semibold backdrop-blur-sm hover:bg-white/10 transition-all hover:scale-105 flex items-center gap-2"><i className="fas fa-envelope"></i> {t.hero.btn2}</button>
+                            </div>
+                            
+                            {/* Quick Stats */}
+                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12 max-w-3xl mx-auto">
+                                {[
+                                    { num: "4", label: "Security Projects", icon: "fa-diagram-project" },
+                                    { num: "<3s", label: "Block Time", icon: "fa-bolt" },
+                                    { num: ">95%", label: "ML Accuracy", icon: "fa-brain" },
+                                    { num: "MITRE", label: "ATT&CK Coverage", icon: "fa-crosshairs" }
+                                ].map((stat, i) => (
+                                    <div key={i} className="p-4 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10">
+                                        <i className={`fas ${stat.icon} text-purple-400 text-xl mb-2`}></i>
+                                        <p className="text-2xl font-bold text-white">{stat.num}</p>
+                                        <p className="text-xs text-gray-400">{stat.label}</p>
+                                    </div>
+                                ))}
                             </div>
                         </div>
                     </section>
@@ -333,6 +761,92 @@
                         <div className="glass-card p-8 md:p-12 rounded-3xl">
                             <h2 className="text-3xl md:text-4xl font-bold mb-8 text-right border-r-4 border-purple-500 pr-5">{t.aboutMe.title}</h2>
                             <p className="text-gray-200 text-lg leading-relaxed">{t.aboutMe.desc}</p>
+                        </div>
+                    </FadeInSection>
+
+                    {/* Journey Flow */}
+                    <FadeInSection className="mb-20">
+                        <JourneyFlow />
+                    </FadeInSection>
+                    
+                    {/* ============= FEATURED SECURITY PROJECTS ============= */}
+                    <FadeInSection className="mb-32" id="portfolio">
+                        <div className="text-center mb-10">
+                            <span className="text-xs font-bold uppercase tracking-widest text-purple-400 bg-purple-900/40 px-3 py-1 rounded-full">
+                                <i className="fas fa-code-branch ml-1"></i> Cybersecurity Portfolio
+                            </span>
+                            <h2 className="text-4xl md:text-5xl font-bold mt-4 bg-gradient-to-r from-white via-purple-200 to-indigo-300 bg-clip-text text-transparent">
+                                مشاريعي الأمنية الاحترافية
+                            </h2>
+                            <p className="text-gray-400 mt-3 max-w-2xl mx-auto">أربع مشاريع متكاملة تغطي End-to-End Security Operations — من الهجوم إلى التوثيق</p>
+                        </div>
+                        
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            {securityProjects.map((project) => (
+                                <ProjectCard key={project.id} project={project} />
+                            ))}
+                        </div>
+
+                        {/* End-to-End Summary */}
+                        <div className="mt-8 glass-card p-6 rounded-2xl bg-gradient-to-r from-purple-900/20 to-indigo-900/20 border-purple-500/30">
+                            <div className="flex items-center gap-3 mb-3">
+                                <i className="fas fa-infinity text-2xl text-purple-400"></i>
+                                <h3 className="text-xl font-bold">End-to-End Security Operations</h3>
+                            </div>
+                            <p className="text-gray-300 text-sm leading-relaxed">
+                                هذه المشاريع ليست منفصلة — بل تكوّن <span className="text-purple-300 font-semibold">Security Engineering Journey</span> متكامل:
+                                <span className="text-emerald-400 font-mono mx-1">Attack Simulation</span> →
+                                <span className="text-blue-400 font-mono mx-1">Detection</span> →
+                                <span className="text-purple-400 font-mono mx-1">Behavioral Analysis</span> →
+                                <span className="text-red-400 font-mono mx-1">Automated Response</span> →
+                                <span className="text-amber-400 font-mono mx-1">Documentation</span>.
+                                هذا التكامل يثبت فهمي الكامل لـ SOC Operations بمستوى احترافي.
+                            </p>
+                        </div>
+                    </FadeInSection>
+
+                    {/* ============= SKILLS MATRIX ============= */}
+                    <FadeInSection className="mb-32" id="skills">
+                        <div className="text-center mb-10">
+                            <span className="text-xs font-bold uppercase tracking-widest text-purple-400 bg-purple-900/40 px-3 py-1 rounded-full">
+                                <i className="fas fa-layer-group ml-1"></i> Technical Arsenal
+                            </span>
+                            <h2 className="text-4xl md:text-5xl font-bold mt-4 bg-gradient-to-r from-white via-purple-200 to-indigo-300 bg-clip-text text-transparent">
+                                المهارات التقنية
+                            </h2>
+                            <p className="text-gray-400 mt-3">المهارات التي أثبتها عبر مشاريعي</p>
+                        </div>
+                        
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                            {skillsMatrix.map((cat, i) => (
+                                <div key={i} className="skills-matrix-item">
+                                    <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${cat.color} flex items-center justify-center text-white text-xl shadow-lg mb-4`}>
+                                        <i className={`fas ${cat.icon}`}></i>
+                                    </div>
+                                    <h3 className="text-xl font-bold mb-3 text-white">{cat.title}</h3>
+                                    <div className="flex flex-wrap gap-2">
+                                        {cat.items.map((item, j) => (
+                                            <span key={j} className="skill-tag">{item}</span>
+                                        ))}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+
+                        {/* Infrastructure */}
+                        <div className="mt-6 glass-card p-6 rounded-2xl">
+                            <div className="flex items-center gap-3 mb-4">
+                                <i className="fas fa-server text-2xl text-purple-400"></i>
+                                <h3 className="text-xl font-bold">Infrastructure & Tools</h3>
+                            </div>
+                            <div className="flex flex-wrap gap-2">
+                                {["Linux", "Ubuntu", "Docker", "Git", "GitHub", "Kali Linux", "Splunk", "Wazuh", "OpenSearch", "TheHive", "Grafana", "Velociraptor"].map((t, i) => (
+                                    <span key={i} className="tech-badge">
+                                        <i className="fas fa-cog text-[8px] text-purple-400"></i>
+                                        {t}
+                                    </span>
+                                ))}
+                            </div>
                         </div>
                     </FadeInSection>
                     
@@ -395,37 +909,6 @@
                             </div>
                         </div>
                     </FadeInSection>
-
-                    {/* NEW SECTION: Featured Cyber Security Portfolio (Wazuh SIEM Lab) */}
-                    <FadeInSection className="mb-32" id="portfolio">
-                        <div className="glass-card p-8 md:p-12 rounded-3xl border-purple-500/30 bg-gradient-to-bl from-purple-950/20 via-[#0f192d] to-indigo-950/20">
-                            <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4 border-r-4 border-indigo-500 pr-5">
-                                <div>
-                                    <span className="text-xs font-bold uppercase tracking-widest text-purple-400 bg-purple-900/40 px-3 py-1 rounded-full"><i className="fas fa-terminal ml-1"></i> مختبر أمني تطبيقي احترافي</span>
-                                    <h2 className="text-3xl md:text-4xl font-bold mt-2 text-white">{t.wazuhLab.title}</h2>
-                                </div>
-                                <a href="https://github.com/ish3-is/Wazuh-SIEM-SOC-Lab" target="_blank" className="px-6 py-3 rounded-xl bg-purple-600 text-white font-medium hover:bg-purple-700 transition flex items-center gap-2 shadow-lg shadow-purple-900/40 self-stretch md:self-auto justify-center">
-                                    <i className="fab fa-github text-xl"></i> تصفح المشروع على GitHub
-                                </a>
-                            </div>
-                            <p className="text-gray-200 text-lg leading-relaxed mb-6">{t.wazuhLab.desc}</p>
-                            
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
-                                <div className="bg-white/5 border border-white/10 rounded-2xl p-4 flex gap-3 items-center">
-                                    <div className="w-12 h-12 bg-red-500/20 text-red-400 rounded-xl flex items-center justify-center text-xl"><i className="fas fa-bolt shadow-sm"></i></div>
-                                    <div><p className="text-xs text-gray-400">محاكاة وتحليل التهديدات</p><p className="font-bold text-sm text-white">2,273+ محاولة Brute Force</p></div>
-                                </div>
-                                <div className="bg-white/5 border border-white/10 rounded-2xl p-4 flex gap-3 items-center">
-                                    <div className="w-12 h-12 bg-green-500/20 text-green-400 rounded-xl flex items-center justify-center text-xl"><i className="fas fa-shield-virus"></i></div>
-                                    <div><p className="text-xs text-gray-400">الأتمتة والدفاع السيبراني</p><p className="font-bold text-sm text-white">SOAR / Active Response</p></div>
-                                </div>
-                                <div className="bg-white/5 border border-white/10 rounded-2xl p-4 flex gap-3 items-center">
-                                    <div className="w-12 h-12 bg-blue-500/20 text-blue-400 rounded-xl flex items-center justify-center text-xl"><i className="fas fa-gavel"></i></div>
-                                    <div><p className="text-xs text-gray-400">خرائط الامتثال والسياسات</p><p className="font-bold text-sm text-white">NIST 800-53 Compliance</p></div>
-                                </div>
-                            </div>
-                        </div>
-                    </FadeInSection>
                     
                     {/* Services Section */}
                     <FadeInSection className="mb-32" id="services">
@@ -468,7 +951,6 @@
                             </div>
                         </div>
 
-                        {/* Channels Integration */}
                         <div className="mt-12 glass-card p-6 md:p-8">
                             <h3 className="text-2xl font-bold mb-6 border-r-4 border-purple-500 pr-4">{t.personalServices.channelsTitle}</h3>
                             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -532,7 +1014,6 @@
                     </FadeInSection>
                 </main>
                 
-                {/* Footer */}
                 <footer className="border-t border-white/10 bg-black/40 py-6 text-center text-gray-400 text-sm backdrop-blur-sm">
                     <p>{t.footer}</p>
                 </footer>
